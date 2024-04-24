@@ -1,7 +1,7 @@
-import discord,random,antigravity,os,re,time,asyncio
-import phasmo,genshinday,valorantAA
-from discord import app_commands,ui
-from discord.ext import tasks,commands
+import discord,os,re
+import phasmo,genshinday,valorantAA,mhw
+from discord import app_commands
+from discord.ext import tasks
 from discord.channel import VoiceChannel
 from datetime import datetime,date
 from yt_dlp import YoutubeDL
@@ -31,7 +31,7 @@ async def on_ready():
 @slash.command(name='help',description='ヘルプ')
 async def help(ctx):
     embed = discord.Embed(title='**Help**',color=0xeee657)
-    embed.add_field(name='開発元',value='discord:たけ#0808')
+    embed.add_field(name='開発元',value='discord:take5054(たけ#0808)')
     embed.add_field(name='',value='Twitter:https://twitter.com/take5054',inline=False)
     embed.add_field(name='コマンド一覧',value='',inline=False)
     for command in slash.walk_commands():
@@ -101,10 +101,12 @@ async def play(ctx,url:str):
 async def dc(ctx):
     await ctx.guild.voice_client.disconnect()
 
+@slash.command(name='mhw',description='MHW:I Monster Info')
+async def MHWI(interaction):
+    await interaction.response.send_modal(mhw.MHWModal())
+
 @client.event
 async def on_message(message):
-    global vol
-    global voiceChannel
     if message.author.bot:
         return
     if message.content == 'ver':
